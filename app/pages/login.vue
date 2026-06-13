@@ -6,16 +6,17 @@
     <div class="shape shape-3"></div>
 
     <v-card
-      class="login-card rounded-xl elevation-24 pa-8 pa-sm-12 glass"
+      class="login-card rounded-xl elevation-24 pa-6 pa-sm-12 glass mx-4 mx-sm-0"
       width="100%"
       max-width="480"
     >
-      <div class="text-center mb-8">
-        <div class="logo-container mx-auto mb-6 d-flex align-center justify-center">
-          <img :src="'/images/logo.png'" alt="Logo" style="width: 70px; height: 70px; object-fit: contain;" />
+      <div class="text-center mb-6 mb-sm-8">
+        <div class="logo-container mx-auto mb-4 mb-sm-6 d-flex align-center justify-center">
+          <img :src="'/images/logo.png'" alt="Logo" style="width: 60px; height: 60px; object-fit: contain;" class="d-sm-none" />
+          <img :src="'/images/logo.png'" alt="Logo" style="width: 70px; height: 70px; object-fit: contain;" class="d-none d-sm-block mx-auto" />
         </div>
-        <h1 class="text-h4 font-weight-black mb-2 text-gradient">Welcome Back</h1>
-        <p class="text-body-1 text-medium-emphasis">Silakan masuk ke akun Anda</p>
+        <h1 class="text-h5 text-sm-h4 font-weight-black mb-2 text-gradient">Welcome Back</h1>
+        <p class="text-body-2 text-sm-body-1 text-medium-emphasis">Silakan masuk ke akun Anda</p>
       </div>
 
       <v-form @submit.prevent="handleLogin" v-model="isFormValid">
@@ -123,7 +124,7 @@ async function handleLogin() {
   errorMessage.value = ''
 
   try {
-    const response: any = await authService.login({
+    const response = await authService.login({
       email: email.value,
       password: password.value
     })

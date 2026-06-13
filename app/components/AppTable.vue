@@ -1,7 +1,7 @@
 <template>
   <v-card class="rounded-xl elevation-3 border global-table-card">
     <!-- Header: Title and Actions -->
-    <div v-if="title || $slots.actions" class="d-flex align-center justify-space-between px-4 py-3">
+    <div v-if="title || $slots.actions" class="d-flex flex-column flex-sm-row align-start align-sm-center justify-space-between px-4 py-3 ga-3">
       <div class="d-flex align-center ga-3">
         <v-avatar v-if="icon" color="primary" variant="tonal" rounded="lg" size="40">
           <v-icon :icon="icon" size="24"></v-icon>
@@ -14,7 +14,7 @@
       </div>
 
       <!-- Actions Button -->
-      <div class="d-flex align-center ga-2">
+      <div class="app-table-actions d-flex flex-wrap align-center ga-2 w-100 w-sm-auto justify-start justify-sm-end">
         <slot name="actions"></slot>
       </div>
     </div>
@@ -22,20 +22,21 @@
     <v-divider></v-divider>
 
     <!-- Toolbar: Items per page and Search -->
-    <v-toolbar color="transparent" class="px-4 py-2" flat>
-      <div class="d-flex align-center">
+    <div class="d-flex flex-column flex-sm-row align-start align-sm-center justify-space-between px-4 py-3 ga-3">
+      <div class="d-flex align-center w-100 w-sm-auto">
         <v-select v-model="internalItemsPerPage" :items="[5, 10, 25, 50]" variant="outlined" color="primary"
-          density="compact" hide-details style="max-width: 90px" menu-icon="tabler-chevron-down"></v-select>
+          density="compact" hide-details class="table-select w-100" menu-icon="tabler-chevron-down"></v-select>
       </div>
-      <v-spacer></v-spacer>
 
-      <!-- Slot for extra toolbar actions (e.g. Filters) -->
-      <slot name="toolbar-actions"></slot>
+      <div class="d-flex flex-column flex-sm-row align-stretch align-sm-center ga-3 w-100 w-sm-auto">
+        <!-- Slot for extra toolbar actions (e.g. Filters) -->
+        <slot name="toolbar-actions"></slot>
 
-      <v-text-field v-if="showSearch" v-model="internalSearch" prepend-inner-icon="tabler-search"
-        placeholder="Cari berdasarkan judul..." density="compact" hide-details variant="outlined" color="primary"
-        class="max-w-xs ml-4" @update:model-value="onSearch"></v-text-field>
-    </v-toolbar>
+        <v-text-field v-if="showSearch" v-model="internalSearch" prepend-inner-icon="tabler-search"
+          placeholder="Cari berdasarkan judul..." density="compact" hide-details variant="outlined" color="primary"
+          class="w-100 max-w-xs" @update:model-value="onSearch"></v-text-field>
+      </div>
+    </div>
 
     <v-divider></v-divider>
 
@@ -64,8 +65,8 @@
       <!-- Custom Pagination Footer -->
       <template v-slot:bottom>
         <v-divider></v-divider>
-        <div class="d-flex align-center justify-space-between pa-4 flex-wrap ga-4">
-          <span class="text-body-2 text-medium-emphasis">
+        <div class="d-flex flex-column flex-sm-row align-center justify-center justify-sm-space-between pa-4 ga-4">
+          <span class="text-body-2 text-medium-emphasis text-center text-sm-left">
             Showing {{ startIndex }} to {{ endIndex }} of {{ totalItems }} entries
           </span>
 
@@ -129,6 +130,10 @@ function onOptionsUpdate(options: any) {
 </script>
 
 <style scoped>
+.table-select {
+  max-width: 90px;
+}
+
 .max-w-xs {
   max-width: 300px;
 }
@@ -156,5 +161,18 @@ function onOptionsUpdate(options: any) {
 
 :deep(.v-data-table__tr:hover) {
   background-color: rgba(var(--v-theme-primary), 0.05) !important;
+}
+
+@media (max-width: 599px) {
+  .app-table-actions {
+    width: 100%;
+  }
+  .app-table-actions > :deep(*) {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+  .table-select {
+    max-width: 100% !important;
+  }
 }
 </style>

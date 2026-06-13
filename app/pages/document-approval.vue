@@ -88,10 +88,8 @@
       :error="store.error || ''"
     >
       <template #actions="{ close }">
-        <div class="d-flex ga-3 w-100 justify-end">
-          <v-btn color="error" variant="tonal" rounded="pill" width="130" class="font-weight-bold" @click="rejectDocument(selectedDoc?.id)">Reject</v-btn>
-          <v-btn color="success" variant="flat" rounded="pill" width="130" class="font-weight-bold" @click="approveDocument(selectedDoc?.id)">Approve</v-btn>
-        </div>
+        <v-btn color="error" variant="tonal" rounded="pill" class="font-weight-bold" style="min-width: 130px;" @click="rejectDocument(selectedDoc?.id)">Reject</v-btn>
+        <v-btn color="success" variant="flat" rounded="pill" class="font-weight-bold" style="min-width: 130px;" @click="approveDocument(selectedDoc?.id)">Approve</v-btn>
       </template>
     </DocumentDetailDialog>
   </v-container>

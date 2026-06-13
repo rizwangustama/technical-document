@@ -2,10 +2,12 @@
 import { computed, ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCookie } from '#app'
+import { useDisplay } from 'vuetify'
 
 const { isDark, toggleTheme, loadSavedColors } = useAppTheme();
 const currentPageTitle = usePageTitle();
 const router = useRouter();
+const { mobile } = useDisplay();
 
 const drawer = ref(true);
 const rail = ref(false);
@@ -28,6 +30,9 @@ function handleLogout() {
 
 onMounted(() => {
   loadSavedColors();
+  if (mobile.value) {
+    drawer.value = false;
+  }
 });
 </script>
 
@@ -40,8 +45,8 @@ onMounted(() => {
   <v-app :theme="isDark ? 'dark' : 'light'">
 
     <!-- Navigation Drawer (Sidebar) -->
-    <v-navigation-drawer v-model="drawer" :rail="rail" permanent :color="isDark ? 'surface' : 'white'"
-      :class="['sidebar-drawer text-secondary', { 'is-expanded': !rail }]" elevation="0">
+    <v-navigation-drawer v-model="drawer" :rail="rail" :permanent="!mobile" :color="isDark ? 'surface' : 'white'"
+      :class="['sidebar-drawer text-secondary d-none d-md-flex flex-column', { 'is-expanded': !rail }]" elevation="0">
       <!-- Logo / Brand -->
       <v-list-item :class="rail ? 'px-2 py-4 d-flex justify-center' : 'px-4 py-4'">
         <template #prepend>
@@ -77,9 +82,6 @@ onMounted(() => {
       <template #append>
         <v-divider />
         <v-list density="compact" nav :class="[rail ? 'px-2' : 'px-3', 'py-3']">
-          <!-- <v-list-item prepend-icon="tabler-settings" to="/settings" title="Settings"
-            :rounded="rail ? 'circle' : 'pill'" class="nav-item mb-1" active-class="active-gradient" /> -->
-          <!-- Collapse Toggle -->
           <v-list-item :prepend-icon="rail ? 'tabler-chevron-right' : 'tabler-chevron-left'"
             :title="!rail ? 'Collapse Sidebar' : undefined" :rounded="rail ? 'circle' : 'pill'"
             class="nav-item text-white bg-primary" @click="rail = !rail" />
@@ -90,16 +92,18 @@ onMounted(() => {
     <!-- Top App Bar -->
 
 
-    <v-app-bar color="transparent" elevation="0" class="page-wrapper" style="padding-right: 24px !important;">
+    <v-app-bar color="transparent" elevation="0" class="page-wrapper" :style="mobile ? 'padding-left: 0px!important' : 'padding-right: 24px !important;'">
       <v-container fluid class="py-0">
         <VCard rounded="xl" elevation="0" border class="w-100">
-          <VCardText class="py-3">
+          <VCardText class="py-3 px-3 px-sm-4">
 
-        <div class="d-flex justify-between items-center">
-          <span class="text-body-1 font-weight-medium ml-2 text-secondary">
-            {{ currentPageTitle }}
-          </span>
-          <div class="d-flex align-center ga-2">
+        <div class="d-flex justify-space-between align-center">
+          <div class="d-flex align-center">
+            <span class="text-body-1 font-weight-medium ml-1 text-secondary text-truncate" style="max-width: 150px; display: inline-block;">
+              {{ currentPageTitle }}
+            </span>
+          </div>
+          <div class="d-flex align-center ga-1 ga-sm-2">
             <!-- Search -->
             <v-btn icon="tabler-search" variant="text" size="small" />
 
@@ -160,5 +164,13 @@ onMounted(() => {
         <NuxtPage />
       </div>
     </v-main>
+
+    <!-- Bottom Navigation (Mobile Only) -->
+    <v-bottom-navigation :bg-color="isDark ? 'surface' : 'white'" grow color="primary" class="d-md-none">
+      <v-btn v-for="item in navItems" :key="item.title" :to="item.to" :value="item.to">
+        <v-icon>{{ item.icon }}</v-icon>
+        <span>{{ item.title }}</span>
+      </v-btn>
+    </v-bottom-navigation>
   </v-app>
 </template>

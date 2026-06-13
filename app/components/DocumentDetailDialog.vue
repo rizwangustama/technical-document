@@ -48,7 +48,7 @@
 
       <!-- Content State -->
       <template v-else-if="document">
-        <v-card-text class="px-6 py-4" style="max-height: 60vh; min-height: 200px;">
+        <v-card-text class="px-4 px-sm-6 py-4 dialog-content">
           <v-row class="mt-1">
             <!-- Project Name -->
             <v-col cols="12" sm="6" lg="6" class="mb-2">
@@ -91,9 +91,9 @@
         </v-card-text>
 
         <!-- Actions -->
-        <v-card-actions class="px-6 py-4 d-flex justify-end">
+        <v-card-actions class="px-6 py-4 d-flex justify-end ga-3 app-dialog-actions w-100">
           <slot name="actions" :close="closeDialog">
-            <v-btn variant="flat" color="primary" rounded="pill" width="130" class="font-weight-bold" @click="closeDialog">Tutup</v-btn>
+            <v-btn variant="flat" color="primary" rounded="pill" class="font-weight-bold" style="min-width: 130px;" @click="closeDialog">Tutup</v-btn>
           </slot>
         </v-card-actions>
       </template>
@@ -141,5 +141,19 @@ function formatDate(dateString: string) {
 <style scoped>
 .tracking-widest {
   letter-spacing: 0.05em;
+}
+
+.dialog-content {
+  min-height: 300px;
+}
+
+@media (max-width: 599px) {
+  .dialog-content {
+    min-height: 0px;
+  }
+  .app-dialog-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
 }
 </style>

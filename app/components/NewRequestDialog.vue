@@ -40,7 +40,7 @@
             class="mb-6"
           />
 
-          <div class="d-flex justify-end ga-3">
+          <div class="d-flex flex-column flex-sm-row justify-end align-stretch align-sm-center ga-3 w-100 mt-2">
             <v-btn variant="tonal" color="secondary" rounded="pill" @click="closeDialog" class="px-6 font-weight-bold">
               Batal
             </v-btn>

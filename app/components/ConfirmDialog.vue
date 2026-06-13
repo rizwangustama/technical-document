@@ -44,17 +44,16 @@
         </v-alert>
       </v-card-text>
 
-      <div class="px-6 pb-6 pt-3 d-flex justify-center ga-3">
-        <v-btn variant="tonal" width="130" color="secondary" rounded="pill" @click="onCancel" class="px-6 font-weight-bold">
+      <div class="px-6 pb-6 pt-3 d-flex justify-center ga-3 w-100">
+        <v-btn variant="tonal" class="flex-grow-1 font-weight-bold" color="secondary" rounded="pill" @click="onCancel">
           {{ cancelText }}
         </v-btn>
         <v-btn 
           :color="color" 
           variant="flat" 
           rounded="pill" 
-          width="130"
+          class="flex-grow-1 font-weight-bold"
           @click="onConfirm"
-          class="px-6 font-weight-bold"
           :loading="loading"
         >
           {{ confirmText }}

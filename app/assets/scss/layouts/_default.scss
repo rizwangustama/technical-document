@@ -10,7 +10,8 @@
 
   /* Memastikan warna icon solid dan sama dengan teks (tidak pudar) */
   :deep(.nav-item) {
-    .v-list-item__prepend > .v-icon,
+
+    .v-list-item__prepend>.v-icon,
     .v-icon {
       opacity: 1 !important;
     }
@@ -73,6 +74,11 @@
 :deep(.v-toolbar-title.v-app-bar-title) {
   margin-inline-start: unset !important;
 }
+
+:deep(.v-toolbar) {
+  background: transparent !important;
+}
+
 
 /* Menyelaraskan letak teks dan ikon navbar dengan konten utama */
 :deep(.v-toolbar__content) {

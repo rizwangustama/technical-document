@@ -19,6 +19,13 @@ export default defineNuxtConfig({
   runtimeConfig: {
     // Variabel ini hanya bisa diakses di server-side API (Nitro)
     jwtSecret: process.env.JWT_SECRET || "fallback_secret_if_env_missing",
+    jwtExpiresIn: process.env.JWT_EXPIRES_IN || "1d",
+    
+    // Variabel dalam public dapat diakses baik di server maupun client-side
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || "http://localhost:3000",
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || "/api",
+    }
   },
 
   modules: ["vuetify-nuxt-module", "@pinia/nuxt"],

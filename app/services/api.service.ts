@@ -6,8 +6,18 @@ const axiosInstance = axios.create({
   timeout: 15000,
 })
 
-// Gunakan interceptor request untuk menyuntikkan token otomatis
+// Gunakan interceptor request untuk menyuntikkan token otomatis dan konfigurasi env
 axiosInstance.interceptors.request.use((config) => {
+  try {
+    // Menyuntikkan base URL dari public runtime config (jika tersedia dari env)
+    const runtimeConfig = useRuntimeConfig()
+    if (runtimeConfig?.public?.apiBase && !config.baseURL && !config.url?.startsWith('http')) {
+      config.baseURL = runtimeConfig.public.apiBase as string
+    }
+  } catch (e) {
+    // Jika dipanggil di luar Nuxt Context, abaikan error (fallback ke URL relatif)
+  }
+
   const token = useCookie('auth_token')
   if (token.value && config.headers) {
     config.headers.Authorization = `Bearer ${token.value}`

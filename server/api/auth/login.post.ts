@@ -55,6 +55,28 @@ export default defineEventHandler(async (event) => {
     // Hilangkan password dari response untuk keamanan
     const { password: _, token, ...userData } = foundUser;
 
+    // Mengambil config dari runtime
+    const config = useRuntimeConfig(event);
+    const secretKey = config.jwtSecret || process.env.JWT_SECRET || "fallback_secret_123";
+    const expiresInStr = config.jwtExpiresIn || process.env.JWT_EXPIRES_IN || "1d";
+
+    // Fungsi sederhana untuk mem-parsing 1d, 1h, 30m ke dalam detik
+    const parseExpiresIn = (str: string): number => {
+      const match = str.match(/^(\d+)([dhms])$/);
+      if (!match) return 86400; // default 24h
+      const value = parseInt(match[1]);
+      const unit = match[2];
+      switch (unit) {
+        case 'd': return value * 86400;
+        case 'h': return value * 3600;
+        case 'm': return value * 60;
+        case 's': return value;
+        default: return 86400;
+      }
+    };
+
+    const expiresInSeconds = parseExpiresIn(expiresInStr);
+
     // Generate token secara dinamis (Struktur Mock JWT: Header.Payload.Signature)
     const header = { alg: "HS256", typ: "JWT" };
     const payload = {
@@ -62,15 +84,11 @@ export default defineEventHandler(async (event) => {
       name: userData.name,
       role: userData.role,
       iat: Math.floor(Date.now() / 1000), // Waktu dibuat (detik ini)
-      exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24) // Expire 24 jam
+      exp: Math.floor(Date.now() / 1000) + expiresInSeconds
     };
 
     const encodeBase64Url = (obj: any) => Buffer.from(JSON.stringify(obj)).toString("base64url");
 
-    // Mengambil JWT_SECRET dari environment variable secara aman
-    const config = useRuntimeConfig(event);
-    // Tambahkan fallback berjaga-jaga jika server Nuxt belum di-restart setelah .env dibuat
-    const secretKey = config.jwtSecret || process.env.JWT_SECRET || "fallback_secret_123";
 
     // Meng-encode secret menjadi string acak base64url agar tampak persis seperti hash signature JWT sungguhan
     const fakeSignature = Buffer.from(`hashed_${secretKey}_${userData.id}`).toString("base64url");

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "usr_123456789",
+    "name": "John Doe",
+    "email": "admin@example.com",
+    "password": "password123",
+    "role": "admin",
+    "avatar": "https://i.pravatar.cc/150?u=admin"
+  },
+  {
+    "id": "usr_987654321",
+    "name": "Jane Smith",
+    "email": "user@example.com",
+    "password": "password123",
+    "role": "user",
+    "avatar": "https://i.pravatar.cc/150?u=user"
+  },
+  {
+    "id": "usr_9876543214",
+    "name": "Rizwan Gustama",
+    "email": "rizonegustama@gmail.com",
+    "password": "admin123",
+    "role": "user",
+    "avatar": "https://i.pravatar.cc/150?u=user"
+  }
+]

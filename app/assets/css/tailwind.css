@@ -1,0 +1,103 @@
+@import "tailwindcss/utilities" layer(utilities);
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Font global - hanya font, tidak mereset warna */
+body,
+.v-application,
+.v-application * {
+  font-family: var(--font-sans) !important;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.7);
+}
+
+/* Smooth transitions - hanya property tertentu, bukan color (bisa ganggu dark mode) */
+.glass,
+.liquid-shadow {
+  transition-property: background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Glassmorphism utilities */
+.glass {
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  background-color: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.v-theme--dark .glass {
+  /* background-color: rgba(30, 41, 59, 0.75);
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35); */
+}
+
+/* Liquid shadow */
+.liquid-shadow {
+  box-shadow: 0 10px 30px -10px rgba(20, 33, 61, 0.12);
+}
+
+.liquid-shadow:hover {
+  box-shadow: 0 15px 40px -10px rgba(20, 33, 61, 0.2);
+}
+
+.v-theme--dark .liquid-shadow {
+  /* box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4); */
+}
+
+.v-theme--dark .liquid-shadow:hover {
+  /* box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.6); */
+}
+
+/* Blob Animation */
+@keyframes blob {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  50% {
+    transform: translate(-30px, 30px) scale(0.9);
+  }
+
+  75% {
+    transform: translate(60px, 50px) scale(1.05);
+  }
+}
+
+.animate-blob {
+  animation: blob 15s infinite alternate ease-in-out;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}

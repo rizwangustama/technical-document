@@ -1,0 +1,99 @@
+.login-wrapper {
+  min-height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Card Effect Hover */
+.login-card {
+  z-index: 10;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+
+    .logo-container {
+      transform: rotate(0deg) scale(1.05);
+    }
+  }
+}
+
+/* Logo styling */
+.logo-container {
+  width: 80px;
+  height: 80px;
+  /* Interpolasi string SCSS agar tidak menyebabkan error kompilasi karena var() */
+  background-color: #{"rgba(var(--v-theme-secondary), 0.12)"};
+  border: 2px solid #{"rgb(var(--v-theme-primary))"};
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(var(--v-theme-primary), 0.2);
+  transform: rotate(-10deg);
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Text Gradient */
+.text-gradient {
+  background: linear-gradient(135deg, rgb(var(--v-theme-primary)), #8c52ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Button hover effect */
+.login-btn {
+  background: linear-gradient(135deg, rgb(var(--v-theme-primary)), #6b46c1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 8px 20px rgba(var(--v-theme-primary), 0.4) !important;
+  }
+}
+
+/* Decorative Background Blobs */
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 1;
+  opacity: 0.5;
+
+  &-1 {
+    width: 500px;
+    height: 500px;
+    background: #4facfe;
+    top: -150px;
+    right: -100px;
+    animation: float 12s ease-in-out infinite alternate;
+  }
+
+  &-2 {
+    width: 600px;
+    height: 600px;
+    background: #a18cd1;
+    bottom: -200px;
+    left: -150px;
+    animation: float 15s ease-in-out infinite alternate-reverse;
+  }
+
+  &-3 {
+    width: 300px;
+    height: 300px;
+    background: #fbc2eb;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 8s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+  100% { transform: translate(-30px, 50px) rotate(10deg) scale(1.1); }
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.4; }
+  100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.7; }
+}

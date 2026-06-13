@@ -1,0 +1,163 @@
+/* Global Overrides for Vuetify Input Components to achieve Premium Aesthetic */
+
+.v-text-field,
+.v-select,
+.v-autocomplete,
+.v-combobox {
+
+  /* Custom border radius menggunakan native variable Vuetify agar outline tidak tumpang tindih (overflow) */
+  --v-field-border-radius: 12px;
+
+  .v-field {
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+    /* Background subtle saat tidak focus */
+    background: rgba(var(--v-theme-on-surface), 0.02) !important;
+  }
+
+  /* Kita gunakan standard CSS rounding untuk Vuetify 3 tanpa merusak struktur SVG notch */
+  &.v-input--density-compact .v-field {
+    --v-field-padding-bottom: 6px;
+  }
+
+  /* Efek Hover: Outline sedikit lebih tebal dan berwarna primary */
+  &:hover .v-field {
+    background: rgba(var(--v-theme-primary), 0.03) !important;
+  }
+
+  &:hover .v-field--variant-outlined .v-field__outline {
+    --v-field-border-opacity: 0.8;
+  }
+
+  /* Efek Focused: Shadow glow cantik tanpa membuat garis menjadi terlalu tebal */
+  .v-field--focused {
+    box-shadow: 0 0 0 3px rgba(var(--v-theme-primary), 0.15) !important;
+
+    .v-field__outline {
+      --v-field-border-width: 1px !important;
+      --v-field-border-opacity: 1 !important;
+    }
+  }
+
+  /* Teks Input dan Select tipis (normal) */
+  .v-field__input,
+  .v-field__input input,
+  .v-select__selection-text {
+    font-weight: 400 !important;
+    color: rgb(var(--v-theme-on-surface));
+  }
+
+  .v-field__input::placeholder,
+  input::placeholder {
+    font-weight: 400 !important;
+    opacity: 0.7;
+  }
+
+  /* Label Styling */
+  .v-label {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    font-size: 0.95rem;
+  }
+}
+
+/* =========================================================
+   Global Override untuk Table (Data Table)
+   ========================================================= */
+.v-data-table, .v-table {
+  /* Header tabel */
+  thead th {
+    font-weight: 600 !important;
+    color: rgba(var(--v-theme-on-surface), 0.9) !important;
+  }
+  
+  /* Baris tabel */
+  tbody td {
+    font-weight: 400 !important;
+    color: rgba(var(--v-theme-on-surface), 0.7) !important;
+  }
+}
+
+/* =========================================================
+   Global Override untuk v-btn (Button)
+   ========================================================= */
+.v-btn {
+  text-transform: none !important; /* Teks tidak dikapitalisasi paksa (natural) */
+  letter-spacing: normal !important; /* Jarak huruf proporsional */
+  font-weight: 400 !important; /* Teks tidak tebal */
+}
+
+/* Khusus untuk dropdown select/menu agar mengambang estetik seperti Glassmorphism */
+.v-overlay-container {
+  .v-overlay__content {
+    border-radius: 12px !important;
+
+    .v-list {
+      border-radius: 12px !important;
+      padding: 8px !important;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
+      border: 1px solid rgba(var(--v-theme-on-surface), 0.08);
+      background: rgba(var(--v-theme-surface), 0.90) !important;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+
+    .v-list-item {
+      border-radius: 8px !important;
+      min-height: 40px !important;
+      margin-bottom: 4px;
+      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Matikan overlay bawaan Vuetify agar custom hover jalan */
+      .v-list-item__overlay {
+        opacity: 0 !important;
+      }
+
+      /* Hover state estetik */
+      &:hover {
+        background: rgba(var(--v-theme-primary), 0.05) !important;
+        color: rgb(var(--v-theme-primary)) !important;
+        transform: scale(0.98);
+      }
+
+      /* Active/Selected state premium dengan indikator garis vertikal */
+      &.v-list-item--active {
+        background: rgba(var(--v-theme-primary), 0.1) !important;
+        color: rgb(var(--v-theme-primary)) !important;
+        font-weight: 700;
+        transform: scale(1);
+
+        position: relative;
+        overflow: visible;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: -8px;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 50%;
+          width: 4px;
+          background: rgb(var(--v-theme-primary));
+          border-radius: 0 4px 4px 0;
+          box-shadow: 0 0 8px rgba(var(--v-theme-primary), 0.5);
+        }
+      }
+    }
+  }
+}
+
+/* =========================================================
+   Global Typography Overrides (Enforce Inter Font)
+   ========================================================= */
+.text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6,
+.text-subtitle-1, .text-subtitle-2, .text-body-1, .text-body-2,
+.text-button, .text-caption, .text-overline {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif !important;
+}

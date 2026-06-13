@@ -1,0 +1,5 @@
+@use "vuetify/settings" with ($button-border-radius: 9999px,
+  $card-border-radius: 28px,
+  $color-pack: false,
+  $body-font-family: '"Inter", sans-serif'
+);

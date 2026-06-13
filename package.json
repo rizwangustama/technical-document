@@ -1,0 +1,33 @@
+{
+  "name": "nuxt-dashboard",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.11.3",
+    "@tabler/icons-vue": "^3.44.0",
+    "apexcharts": "^5.10.0",
+    "axios": "^1.17.0",
+    "nuxt": "^4.0.0",
+    "pinia": "^3.0.4",
+    "vue": "latest",
+    "vue-router": "latest",
+    "vue3-apexcharts": "^1.11.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@mdi/font": "^7.4.47",
+    "@tailwindcss/vite": "^4.1.10",
+    "@types/node": "^25.9.3",
+    "sass": "^1.87.0",
+    "tailwindcss": "^4.1.10",
+    "vite-plugin-vuetify": "^2.1.1",
+    "vuetify-nuxt-module": "^0.18.3"
+  }
+}

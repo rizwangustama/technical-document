@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     const body = await readBody(event);
     const storage = useStorage("assets:");
     const key = "server:documents.json";
-    
+
     if (!(await storage.hasItem(key))) {
       throw new Error("File mock documents tidak ditemukan");
     }

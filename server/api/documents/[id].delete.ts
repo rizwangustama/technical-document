@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
     const storage = useStorage("assets:");
     const key = "server:documents.json";
-    
+
     if (!(await storage.hasItem(key))) {
       setResponseStatus(event, 404);
       return errorResponse("Database dokumen tidak ditemukan");

@@ -1,4 +1,7 @@
 import tailwindcss from "@tailwindcss/vite";
+import { createResolver } from "@nuxt/kit";
+
+const { resolve } = createResolver(import.meta.url);
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -34,7 +37,7 @@ export default defineNuxtConfig({
     moduleOptions: {
       importComposables: true,
       styles: {
-        configFile: "assets/scss/settings.scss",
+        configFile: resolve("./app/assets/scss/settings.scss"),
       },
     },
     vuetifyOptions: "./vuetify.config.ts",
@@ -42,6 +45,16 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [tailwindcss()],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          loadPaths: ["node_modules"],
+        },
+        sass: {
+          loadPaths: ["node_modules"],
+        },
+      },
+    },
   },
 
   css: [
